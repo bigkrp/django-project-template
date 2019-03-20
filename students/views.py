@@ -7,8 +7,24 @@ from django.http import HttpResponse
 # Views for students
 
 def students_list(request):
-    """Return students list"""
-    return render(request, 'students/students_list.html', {})
+    students = (
+        {'id': 1,
+        'first_name': u'Віталій',
+        'last_name': u'Подоба',
+        'ticket': 235,
+        'image': 'img/building.jpg'},
+        {'id': 2,
+        'first_name': u'Корост',
+        'last_name': u'Андрій',
+        'ticket': 2123,
+        'image': 'img/mountains.jpg'},
+        {'id': 3,
+        'first_name': u'Притула',
+        'last_name': u'Тарас',
+        'ticket': 666,
+        'image': 'img/man.jpg'}
+    )
+    return render(request, 'students/students_list.html', {'students': students})
 
 def students_add(request):
     """Add new student"""
