@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
         integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <link rel="stylesheet" href="{{ PORTAL_URL }}{% static "css/main.css" %}">
     {% block extra_css %}{% endblock extra_css %}
 </head>
 
@@ -44,9 +44,9 @@
         <div class="row" id="sub-header">
             <div class="col-xs-12">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="{% url "home" %}">Студенти</a></li>
-                    <li><a href="/journal">Відвідування</a></li>
-                    <li><a href="{% url "groups" %}">Группи</a></li>
+                    <li {% if request.path == '/' %} class="active" {% endif %}><a href="{% url "home" %}">Студенти</a></li>
+                    <li {% if '/journal' in request.path %} class="active" {% endif %}><a href="/journal">Відвідування</a></li>
+                    <li {% if '/groups' in request.path %} class="active" {% endif %}><a href="{% url "groups" %}">Группи</a></li>
                 </ul>
             </div>
         </div>
