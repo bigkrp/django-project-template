@@ -7,41 +7,44 @@
 {% block title %}Список Груп{% endblock title %}
 
 {% block content %}
-<a href="{% url "groups_add" %}" class="btn btn-primary">Додати группу</a>
 
-<table class="table table-hover table-striped">
-    <thead>
-        <tr>
-            <th>#</th>
-            <th><a href="">Назва &uarr;</a></th>
-            <th><a href="#">Староста</a></th>
-            <th>Дії</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for student in students %}
-        <tr>
-            <td>{{ forloop.counter }}</td>
-            <td><a href="{% url "groups_edit" student.id %}" title="Редагувати">{{ student.last_name }}</a></td>
-            <td><a href="{% url "groups_edit" student.id %}" title="Редагувати">{{ student.first_name }}</a></td>
-            {% comment %} <td>{{ student.ticket }}</td> {% endcomment %}
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Дія <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="{% url "groups_edit" student.id %}">Редагувати</a></li>
-                        <li><a href="/journal/1">Відвідування</a></li>
-                        <li><a href="{% url "groups_delete" student.id %}">Видалити</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        {% endfor %}
-        
-    </tbody>
-</table>
+{% if groups %}
+    <table class="table table-hover table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th><a href="">Назва &uarr;</a></th>
+                <th><a href="#">Староста</a></th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for group in groups %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url "groups_edit" group.id %}" title="Редагувати">{{ group.name }}</a></td>
+                <td><a href="{% url "groups_edit" group.leader.id %}" title="Редагувати">{{ group.leader.name }}</a></td>
+                <td>{{ group.ticket }}</td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Дія <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url "groups_edit" group.id %}">Редагувати</a></li>
+                            <li><a href="/journal/1">Відвідування</a></li>
+                            <li><a href="{% url "groups_delete" group.id %}">Видалити</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+{% else %}
+    <p>Поки немає груп у базі.</p>
+{% endif %}
 
 <nav>
     <ul class="pagination">
